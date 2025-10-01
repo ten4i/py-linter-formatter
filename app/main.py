@@ -18,19 +18,6 @@ def format_single_linter_file(file_path: str, errors: list) -> dict:
 
 def format_linter_report(linter_report: dict) -> list:
     return [
-        {
-            "errors": [
-                {
-                    "line": err["line_number"],
-                    "column": err["column_number"],
-                    "message": err["text"],
-                    "name": err["code"],
-                    "source": "flake8",
-                }
-                for err in errors
-            ],
-            "path": filename,
-            "status": "failed" if errors else "passed",
-        }
+        format_single_linter_file(filename, errors)
         for filename, errors in linter_report.items()
     ]
